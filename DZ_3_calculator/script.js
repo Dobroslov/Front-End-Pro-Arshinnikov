@@ -34,4 +34,4 @@ if (firstOperation === '*') {
 } else if (firstOperation === '-') {
         calculationResult =  firstNumber - secondNumber;
 }
-alert(`${firstNumber}${firstOperation}${secondNumber}=${calculationResult}`);
+alert(`Полученный результат ${firstNumber}${firstOperation}${secondNumber}=${calculationResult}`);
