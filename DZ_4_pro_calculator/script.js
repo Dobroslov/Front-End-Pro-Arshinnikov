@@ -9,12 +9,14 @@ function getNumber(message) {
 
 function getOperator(message) {
         let operator;
+        let isNotSuccessfull;
         do {
                 operator = prompt(message);
-                if (operator !== "+" && operator !== "-" && operator !== "*" && operator !== "/") {
+                isNotSuccessfull = (operator !== "+" && operator !== "-" && operator !== "*" && operator !== "/");
+                if (isNotSuccessfull) {
                         alert(`Введённое значение ${operator} не является допустимым арифметическим действием!`);
                 }
-        } while (operator !== "+" && operator !== "-" && operator !== "*" && operator !== "/") 
+        } while (isNotSuccessfull);
         return operator;
 }
 
