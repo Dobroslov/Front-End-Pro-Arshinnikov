@@ -1,92 +1,83 @@
-
-
-// let firstOperand = +getNumber('Введите первое число');
-// let validOperator = getOperator('Введи арифметическое действие (Варианты: "+" "-" "*" "/")');
-// let secondOperand = +getNumber('Введите второе число');
-// let calculationResult;
-
-//         switch (validOperator) {
-//                 case '+':
-//                         calculationResult = firstOperand + secondOperand;
-//                         break;
-//                 case '-':
-//                         calculationResult = firstOperand - secondOperand;
-//                         break;
-//                 case '*':
-//                         calculationResult = firstOperand * secondOperand;
-//                         break;
-//                 case '/':
-//                         calculationResult = firstOperand / secondOperand;
-//                         break;              
-//         }
-
-// alert(`${firstOperand} ${validOperator} ${secondOperand} = ${calculationResult}`);
-
-
-
-
 function getOperator(message) {
-        let operator = '';
-        let isNotSuccessfull;
+        let answer = '';
 
         do {
-                operator = prompt(`${message}`);
-                isNotSuccessfull = (operator !== "+" && operator !== "-" && operator !== "*" && operator !== "/");
-                if (isNotSuccessfull) {
-                        alert(`Введённое значение ${operator} не является допустимым арифметическим действием!`);
+                answer = prompt(message);
+                 
+                if (!isOperatorSuccessfull(answer)) {
+                        alert(`Введённое значение ${answer} не является допустимым арифметическим действием!`);
                 }
-        } while (isNotSuccessfull);
+        } while (!isOperatorSuccessfull(answer));
         
-        return operator;
+                return answer;
 }
 
-// function isOperatorSuccessfull(operator) {  
-//         return (
-//                 operator === "+" || 
-//                 operator === "-" || 
-//                 operator === "*" || 
-//                 operator !== "/"
-//         );  // функция проверки соответсвия оператора нужным значениям + - * /
-        
-// }
+function isOperatorSuccessfull(operator) {  
+        return (
+                operator === "+" || 
+                operator === "-" || 
+                operator === "*" || 
+                operator === "/"  // функция проверки соответсвия оператора нужным значениям + - * /
+        );
+}
 
-function getNumberOperands(message) {
-        let result = +prompt(message, 2);
+function getNumberOfOperands(message) {
+        let result = prompt(message, 2);
 
-        while (isNaN(result) || (result < 2) || !Number.isInteger(result)) {
+        while (
+                isNaN(result) || 
+                (result < 2) || 
+                !Number.isInteger(+result)
+                ) {
                 if (isNaN(result)) {
-                        alert(`Введённое значение ${result} не является ЧИСЛОМ`);
+                        alert(`Введённое значение ${result} не является числом`);
                 } 
-                if (!Number.isInteger(+result)) {
-                        alert(`Данное значение ${result} не является ЦЕЛЫМ ЧИСЛОМ`);
+                else if (!Number.isInteger(+result)) {
+                        alert(`Данное значение ${result} не является целым числом`);
                 }
-                if (result < 2) {
-                        alert(`Введенное значение ${result} - МЕНЬШЕ 2`);
+                
+                else if (result < 2) {
+                        alert(`Данное значение ${result} меньше 2`)
                 }
+                
                 result = prompt(message);
         }
-        return result;
+        return +result;
 }
 
+function getOperand(message) {
+        let number = '';
 
-// function getOperand(message) {
-//         let operand = '';
-//         while
-// }
-// function isInteger() {
-//         let value = +prompt('Введи целое число');
-//         while (!Number.isInteger(value)) {
-//                 alert(`Данное значение ${value} не является целым числом`)
-//                 value = +prompt('Введи целое число');
-//         }
-//         alert(`Число "${value}" является целым`);
-//         return true;
-// }
+        do {
+                number = prompt(message);
+                if (isNaN(number)) {
+                        alert(`Введённое значение ${number} не является ЧИСЛОМ`);
+                } 
+        } while (isNaN(number));
+        return +number;
+}
 
 let validOperator = getOperator('Введи арифметическое действие (Варианты: "+" "-" "*" "/")');
-let numberOperands = getNumberOperands('Введите необходимое количество операндов (не менее двух)');
-let inputOperand = getOperand('Введите число');
+let numberOfOperands = getNumberOfOperands('Введите необходимое количество операндов (не менее двух)');
+let Operand = getOperand('Введите число');
+let result =  calculate(inputOperandA, inputOperandB,validOperator)
 
+function isNumber(number) {
+        return (isNaN(number));
+}
+
+// function calculate(a, b, operator) {
+//         switch (operator) {
+//                 case '+':
+//                         return sum(a, b);
+//                 case '-':
+//                         return sub(a, b);
+//                 case '*':
+//                         return divid(a, b);
+//                 case '/':
+//                         return multiplication(a, b);              
+//         } // выбираем действие в зависимости от оператора (арифметического знака)
+// }
 
 // function sum(a, b) { // функция считает сумму сложения
 //         return a+b;
@@ -103,6 +94,25 @@ let inputOperand = getOperand('Введите число');
 // function multiplication(a, b) { // функция считает деление
 //         return a*b;
 // }
+
+
+
+
+
+// function getOperand(message) {
+//         let operand = '';
+//         while
+// }
+// function isInteger() {
+//         let value = +prompt('Введи целое число');
+//         while (!Number.isInteger(value)) {
+//                 alert(`Данное значение ${value} не является целым числом`)
+//                 value = +prompt('Введи целое число');
+//         }
+//         alert(`Число "${value}" является целым`);
+//         return true;
+// }
+
 
 
 // function showResult(a, b, op, result) {
