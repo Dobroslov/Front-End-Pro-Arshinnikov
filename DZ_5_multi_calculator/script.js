@@ -21,15 +21,21 @@ function isOperatorSuccessfull(operator) {
         );
 }
 
+
+
+function isNumber(number) {
+        return (isNaN(number)); // валидация числа
+}
+
 function getNumberOfOperands(message) {
         let result = prompt(message, 2);
 
         while (
-                isNaN(result) || 
+                isNumber(result) || 
                 (result < 2) || 
                 !Number.isInteger(+result)
                 ) {
-                if (isNaN(result)) {
+                if (isNumber(result)) {
                         alert(`Введённое значение ${result} не является числом`);
                 } 
                 else if (!Number.isInteger(+result)) {
@@ -42,81 +48,83 @@ function getNumberOfOperands(message) {
                 
                 result = prompt(message);
         }
-        return +result;
+        return +result; // получение количества вводимых чисел для арифм. действий и их валидация
 }
+
 
 function getOperand(message) {
         let number = '';
 
         do {
                 number = prompt(message);
-                if (isNaN(number)) {
+                if (isNumber(number)) {
                         alert(`Введённое значение ${number} не является ЧИСЛОМ`);
                 } 
-        } while (isNaN(number));
-        return +number;
+        } while (isNumber(number));
+        return +number; // получение валидного числа для арифметического действия
 }
+
 
 let validOperator = getOperator('Введи арифметическое действие (Варианты: "+" "-" "*" "/")');
+// let Operand = getOperand('Введите число');
 let numberOfOperands = getNumberOfOperands('Введите необходимое количество операндов (не менее двух)');
-let Operand = getOperand('Введите число');
-let result =  calculate(inputOperandA, inputOperandB,validOperator)
 
-function isNumber(number) {
-        return (isNaN(number));
+switch (validOperator) {
+        case '+':
+                mathOperation = function(a, b) {
+                return sum(a, b);
+                }
+                break;
+        case '-':
+                mathOperation = function(a, b) {
+                return sub(a, b);
+                }
+                break;
+        case '*':
+                mathOperation = function(a, b) {
+                return divid(a, b);
+                }
+                break;
+        case '/':
+                mathOperation = function(a, b) {
+                return multiplication(a, b);
+                }
+                break;
+} // совершаем арифметическое действие в зависимости от выбранного пользователем оператора (арифметического знака)
+
+
+function sum(a, b) { // функция считает сложение
+        return a+b;
 }
 
-// function calculate(a, b, operator) {
-//         switch (operator) {
-//                 case '+':
-//                         return sum(a, b);
-//                 case '-':
-//                         return sub(a, b);
-//                 case '*':
-//                         return divid(a, b);
-//                 case '/':
-//                         return multiplication(a, b);              
-//         } // выбираем действие в зависимости от оператора (арифметического знака)
-// }
+function sub(a, b) { // функция считает вычитание
+        return a-b;
+}
 
-// function sum(a, b) { // функция считает сумму сложения
-//         return a+b;
-// }
+function divide(a, b) { // функция считает деление
+        return a/b;
+}
 
-// function sub(a, b) { // функция считает вычитание
-//         return a-b;
-// }
+function multiplication(a, b) { // функция считает умножение
+        return a*b;
+}
 
-// function divid(a, b) { // функция считает деление
-//         return a/b;
-// }
+let inputNumber;
+let resultCalculate;
 
-// function multiplication(a, b) { // функция считает деление
-//         return a*b;
-// }
+for (n = 0; n < numberOfOperands; n++) {
+        inputNumber = getOperand('Введите число');
+        if (n === 0) {
+                resultCalculate = inputNumber
+        } else {
+                resultCalculate = mathOperation(resultCalculate, inputNumber)
+        }
+}
 
-
-
-
-
-// function getOperand(message) {
-//         let operand = '';
-//         while
-// }
-// function isInteger() {
-//         let value = +prompt('Введи целое число');
-//         while (!Number.isInteger(value)) {
-//                 alert(`Данное значение ${value} не является целым числом`)
-//                 value = +prompt('Введи целое число');
-//         }
-//         alert(`Число "${value}" является целым`);
-//         return true;
-// }
-
-
+alert(resultCalculate);
 
 // function showResult(a, b, op, result) {
-//         alert(`$a{a} ${op} ${b} = ${result}`) // фунция выводит готовый результат
+//         alert(`$a{a} ${op} ${b} = ${result}`) // функция выводит готовый результат
 // }
 
 // showResult(operandA, operandB, operator, result); 
@@ -124,6 +132,3 @@ function isNumber(number) {
 
 
 
-// function isNumberValid(value) {
-//         return (!isNaN(value) && value !== '' && value !== null); // Вернётся TRUE проверяет валидность цифр
-// }
