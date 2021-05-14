@@ -65,9 +65,8 @@ function getOperand(message) {
 }
 
 
-let validOperator = getOperator('Введи арифметическое действие (Варианты: "+" "-" "*" "/")');
-// let Operand = getOperand('Введите число');
-let numberOfOperands = getNumberOfOperands('Введите необходимое количество операндов (не менее двух)');
+let validOperator = getOperator('Введи арифметическое действие (Варианты: "+" "-" "*" "/")'); // переменная для вводимого ариф. действия
+let numberOfOperands = getNumberOfOperands('Введите необходимое количество операндов (не менее двух)'); // переменная для колличества вводимых чисел
 
 switch (validOperator) {
         case '+':
@@ -82,12 +81,12 @@ switch (validOperator) {
                 break;
         case '*':
                 mathOperation = function(a, b) {
-                return divid(a, b);
+                return multiplication(a, b);
                 }
                 break;
         case '/':
                 mathOperation = function(a, b) {
-                return multiplication(a, b);
+                return divide(a, b);
                 }
                 break;
 } // совершаем арифметическое действие в зависимости от выбранного пользователем оператора (арифметического знака)
@@ -109,19 +108,23 @@ function multiplication(a, b) { // функция считает умножен�
         return a*b;
 }
 
-let inputNumber;
-let resultCalculate;
+let inputNumber; // переменная для ввода чисел
+let resultCalculate; // переменная для калькуляции чисел (конечный результат)
+let outputResult; // переменная для alert
 
 for (n = 0; n < numberOfOperands; n++) {
         inputNumber = getOperand('Введите число');
         if (n === 0) {
-                resultCalculate = inputNumber
+                resultCalculate = inputNumber; // присваиваем первое введенное число переменной результат
+                outputResult = inputNumber; // присваиваем первое введенное число переменной которая будет выводиться в alert
         } else {
-                resultCalculate = mathOperation(resultCalculate, inputNumber)
+                resultCalculate = mathOperation(resultCalculate, inputNumber);
+                outputResult += ` ${validOperator} ${inputNumber}`; // запись чисел для выведения в alert
         }
+        
 }
 
-alert(resultCalculate);
+alert(`${outputResult} = ${resultCalculate}`); // выводит результат и все введённые числа и ариф. действия
 
 // function showResult(a, b, op, result) {
 //         alert(`$a{a} ${op} ${b} = ${result}`) // функция выводит готовый результат
