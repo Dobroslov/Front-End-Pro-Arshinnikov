@@ -36,7 +36,7 @@ function getArrayNumbers(array) {
 }
 
 function getResult (operator) {
-  
+
   sum = arrayNumbers[0];
 
   for(let i = 1; i < (arrayNumbers.length); i++) {
@@ -63,7 +63,7 @@ function getResult (operator) {
 const operator = getOperator();
 let arrayOfValidValue = getArrayOfValidValue();
 let arrayNumbers = getArrayNumbers (arrayOfValidValue);
-let result = getResult();
+let result = getResult(operator);
 alert(`Результат: ${arrayNumbers.join(operator)} = ${result}`);
 
 
