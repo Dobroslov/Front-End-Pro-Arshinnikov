@@ -3,8 +3,9 @@ function getOperator () {
     let answer;
 
     do {
-            answer = prompt('Введи необходимое арифметическое действие (Варианты: "+" "-" "*" "/"');
+      answer = prompt('Введи необходимое арифметическое действие (Варианты: "+" "-" "*" "/"');
     } while (!isOperatorValid(answer))
+
     return answer;
 }
 
@@ -23,38 +24,39 @@ function getArrayOfValidValue() {
     answer = prompt('Введи все числа для арифметического действия через запятую'); 
   } while (answer === null || answer === '')
     arrValue = answer.split(',');
-
-    return filterNumbers = arrValue.map(Number).filter(Number)
+     return filterNumbers = arrValue.map(Number).filter(function(index) {
+            return (!isNaN(index));
+          }
+    )    
 }
 
 function getResult (operator) {
 
-  let sum = arrayOfValidValue[0];
+  let mathResult = arrayOfValidValue[0];
 
   for(let i = 1; i < (arrayOfValidValue.length); i++) {
 
     switch(operator) {
       case '+':
-        sum = sum + arrayOfValidValue[i];  
-        console.log(sum);    
+        mathResult = mathResult + arrayOfValidValue[i];  
         break;
       case '-':
-        sum = sum - arrayOfValidValue[i];
+        mathResult = mathResult - arrayOfValidValue[i];
         break;
       case '*':
-        sum = sum * arrayOfValidValue[i];
+        mathResult = mathResult * arrayOfValidValue[i];
         break;
       case '/':
-        sum = sum / arrayOfValidValue[i];
+        mathResult = mathResult / arrayOfValidValue[i];
         break;
     }    
   }
-  return sum;
+  return mathResult;
 }
 
-let operator = getOperator();
-let arrayOfValidValue = getArrayOfValidValue();
-let result = getResult(operator);
+const operator = getOperator();
+const arrayOfValidValue = getArrayOfValidValue();
+const result = getResult(operator);
 alert(`Результат: ${arrayOfValidValue.join(operator)} = ${result}`);
 
 
