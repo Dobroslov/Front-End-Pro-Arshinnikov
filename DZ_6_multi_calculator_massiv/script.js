@@ -24,47 +24,38 @@ function getArrayOfValidValue() {
   } while (answer === null || answer === '')
     arrValue = answer.split(',');
 
-    return filterNumbers = arrValue.filter(function(index) {
-            return (!isNaN(index));
-          }
-    )
-}
-
-
-function getArrayNumbers(array) {  
-  return array.map(Number);
+    return filterNumbers = arrValue.map(Number).filter(Number)
 }
 
 function getResult (operator) {
 
-  sum = arrayNumbers[0];
+  let sum = arrayOfValidValue[0];
 
-  for(let i = 1; i < (arrayNumbers.length); i++) {
+  for(let i = 1; i < (arrayOfValidValue.length); i++) {
 
     switch(operator) {
       case '+':
-        sum = sum + arrayNumbers[i];  
+        sum = sum + arrayOfValidValue[i];  
         console.log(sum);    
         break;
       case '-':
-        sum = sum - arrayNumbers[i];
+        sum = sum - arrayOfValidValue[i];
         break;
       case '*':
-        sum = sum * arrayNumbers[i];
+        sum = sum * arrayOfValidValue[i];
         break;
       case '/':
-        sum = sum / arrayNumbers[i];
+        sum = sum / arrayOfValidValue[i];
         break;
     }    
   }
   return sum;
 }
 
-const operator = getOperator();
+let operator = getOperator();
 let arrayOfValidValue = getArrayOfValidValue();
-let arrayNumbers = getArrayNumbers (arrayOfValidValue);
 let result = getResult(operator);
-alert(`Результат: ${arrayNumbers.join(operator)} = ${result}`);
+alert(`Результат: ${arrayOfValidValue.join(operator)} = ${result}`);
 
 
 
