@@ -40,7 +40,7 @@ function averageGroupMark() {
     })      
       // console.log(sumPoints + ' ' + commonLenght + ' ' + (sumPoints/commonLenght));
     
-      return sumPoints;
+      return sumPoints/commonLenght;
       }
   
 function averageStudentMark(numberStudent) {
