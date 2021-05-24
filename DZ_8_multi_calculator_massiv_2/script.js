@@ -13,7 +13,7 @@
 
 const operator = getOperator('Введите необходимое арифметическое действие (Варианты: "+" "-" "*" "/")'); 
 const arrOperands = getOperands('Введи все числа для арифметического действия через запятую'); //массив с валидными значениями
-const result = getResult();
+const result = getResult(operator, arrOperands);
 
 function getOperator (message) {
   let answer;
@@ -49,32 +49,25 @@ function getOperands (message) {
   }).map(Number); // перебираю массив со строками чисел и перевожу их в цифровой формат, делаю числами.
 }
 
-function getResult(operator) {
-
+function getResult(operator, operands) {
+  let calculation;
     switch(operator) {
     case '+':
-        function mathOperation() {
-          return arrOperands.reduce((acc, current) => acc + current, 0);          
-        }
+        calculation = operands.reduce((acc, current) => acc + current, 0);
         break;
     case '-':
-        function mathOperation() {
-          return arrOperands.reduce((acc, current) => acc - current, 0);
-        }
+        calculation = operands.reduce((acc, current) => acc - current, 0);
       break;
     case '*':
-        function mathOperation() {
-          return arrOperands.reduce((acc, current) => acc * current, 0);
-        }
+        calculation = operands.reduce((acc, current) => acc * current, 0);
       break;
     case '/':
-        function mathOperation() {
-          return arrOperands.reduce((acc, current) => acc / current, 0);
-        }
+        calculation = operands.reduce((acc, current) => acc / current, 0);
       break;
     }    
-    return mathOperation();    
+    return calculation;    
   }
 
-  alert(result);
+  
+  alert(` ${arrOperands.join(operator)} = ${result}`);
 
