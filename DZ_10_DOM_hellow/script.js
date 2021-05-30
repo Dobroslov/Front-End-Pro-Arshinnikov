@@ -14,7 +14,7 @@ function isValidUserName(message) {
   return (message === '' || message === null); // проверка валидности значения
 }
 
-document.getElementById('user_name').innerHTML = userName + ', это было интересное задание!'; // на странице нахожу по id="user_name" и через innerHTML приваиваю span переменную с именем и добавленной строкой
+document.getElementById('user_name').innerHTML = userName + ', это было интересное задание!'; // на странице нахожу по id="user_name" и через innerHTML присваиваю span переменную с именем и добавленной строкой
 
 
 // document.getElementsByTagName('h1')[0].innerHTML = userName + ', это было интересное задание!';
