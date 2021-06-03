@@ -10,30 +10,24 @@
 const listContainer = document.getElementById('listContainer'); // вызов списка ul
 const buttonSubmitTask =  document.getElementById('saveTask'); // кнопка сабмит
 const inputText = document.getElementById('inputText'); // вызов текстового поля инпута
+const template = `
+<li class="task-performed">
+    <span class="task-text" id="textTask"></span>
+    <button class="button-delet-task">Delete</button>
+</li> 
+`; // переменная в которой содержится html код для лишки
 
-
-buttonSubmitTask.addEventListener('click', clickHandler); // получаем элемент button с id="myBtn" в него добавляем список событий с событием 'click'(одинарное нажатие кнопки мыши) и запускаем функцию с добавлением лишки и текста
+buttonSubmitTask.addEventListener('click', clickHandler); // получаем элемент button в него добавляем список событий с событием 'click'(одинарное нажатие кнопки мыши) и запускаем функцию clickHandler
+inputText.addEventListener('change', clickHandler); // получаем элемент input в него добавляем список событий с событием 'change' (которое будет валидаций для пустого ввода?) (одинарное нажатие кнопки мыши) и запускаем функцию clickHandler
 
 function clickHandler () {
   const li = listContainer.insertAdjacentHTML('beforeend', template); // создаём элемент <li>
   
-  document.getElementById('list').append(li) //получаем список ul с id="list" и добавляем в этот ul нашу лишку с текстом
+  document.getElementById('listContainer').append(li) //получаем список ul с id="list" и добавляем в этот ul нашу лишку с текстом
+  textTask.textContent = inputText.value;
+  inputText.value = ' ';
+  return li;
 }
-
-
-const template = `
-<li class="task-performed">
-    <span class="task-text"></span>
-    <button class="button-delet-task">Delete</button>
-</li> 
-`;
-document.body.; // для вставки куска кода
-
-
-
-
-.addEventListener('click', clickHandler);
-
 
 function clickHandler () {
   const createString = document.createElement('template'); // создаём элемент <li>
