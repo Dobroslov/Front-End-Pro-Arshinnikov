@@ -15,7 +15,7 @@ const buttonSubmitTask =  document.getElementById('saveTask'); // вызов к�
 const template = `
 <li class="task-performed">
     <span class="task-text">$CONTENT$</span>    
-    <button class="button-delete-task">Delete</button>
+    <button class="button-deletе-task">Delete</button>
 </li> 
 `; // переменная в которой содержится шаблон html кода для лишки
 
