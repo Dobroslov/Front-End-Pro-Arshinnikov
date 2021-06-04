@@ -17,14 +17,14 @@ const template = `
     <span class="task-text">$CONTENT$</span>    
     <button class="button-delete-task">Delete</button>
 </li> 
-`; // переменная в которой содержится html код для лишки
+`; // переменная в которой содержится шаблон html кода для лишки
 
 buttonSubmitTask.addEventListener('click', createNewTask); // получаем элемент button в него добавляем список событий с событием 'click'(одинарное нажатие кнопки мыши) и запускаем функцию clickHandler
 
 function createNewTask () {
-  if (inputText.value !== '') {
-    let content = template.replace('$CONTENT$', inputText.value);
-    listContainer.insertAdjacentHTML('beforeend', content); 
-    inputText.value = '';
+  if (inputText.value !== '') { // условие для пустой строки, пока строка пустая, то не создавать новую задачу
+    let content = template.replace('$CONTENT$', inputText.value); // через replace делаю замену $CONTENT$ в HTML шаблоне на текущее значение инпута(inputText.value)
+    listContainer.insertAdjacentHTML('beforeend', content); // в ul добавляю кусоку HTML кода в низ списка ('beforeend')
+    inputText.value = ''; // делаю значение инпута пустым после всех действий
   }
 }
