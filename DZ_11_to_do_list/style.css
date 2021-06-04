@@ -50,7 +50,7 @@ span {
 }
 
 .task-performed {
-    min-width: 200px;
+    min-width: 400px;
     color: #458FF6;
     font-weight: bold;
     font-size: 16px;
@@ -61,6 +61,7 @@ span {
     background-color: white;
     display: inline-block;
     text-align: center;
+    margin: 5px 0px;
 }
 
 .task-text {
@@ -71,6 +72,20 @@ span {
 }
 
 .button-delet-task {
+    min-width: 100px;
+    color: #458FF6;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 1.1;
+    border-radius: 15px;
+    border: #458FF6 solid 1px;
+    padding: 4px 14px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+}
+
+input[submit="s"] {
     min-width: 100px;
     color: #458FF6;
     font-weight: bold;
