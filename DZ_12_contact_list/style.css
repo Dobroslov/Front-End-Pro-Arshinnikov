@@ -1,0 +1,91 @@
+/* внешние границы таблицы серого цвета толщиной 1px */
+table {
+    border: 2px solid rgb(68, 117, 251);
+    border-collapse: collapse;
+}
+
+/* границы ячеек первого ряда таблицы */
+th {
+    border: 2px solid rgb(68, 117, 251);
+    height: 30px;
+}
+
+/* границы ячеек тела таблицы */
+td {
+    border: 2px solid rgb(68, 117, 251);
+    width: 200px;
+    height: 30px;
+}
+
+
+
+.main-container {
+    width: 900px;
+    height: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(134, 200, 150);
+    padding-top: 20px;
+    padding-top: 50px;
+    border-radius: 15px;
+}
+
+/* 
+input[type="text"] {
+    border: 1px solid #9595C9;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    height: 20px;
+    min-width: 350px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 2.22;
+    color: #626780;
+    padding: 6px 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: 40px;
+} */
+
+/* input[type="submit"] {
+    min-width: 100px;
+    color: #458FF6;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 1.1;
+    border-radius: 5px;
+    border: #458FF6 solid 1px;
+    padding: 4px 14px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+} */
+
+/* .button-delete-user {
+    min-width: 120px;
+    color: #458FF6;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 1.1;
+    border-radius: 15px;
+    border: #458FF6 solid 1px;
+    padding: 4px 14px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+}
+
+.button-add-user {
+    min-width: 120px;
+    color: #458FF6;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 1.1;
+    border-radius: 15px;
+    border: #458FF6 solid 1px;
+    padding: 4px 14px;
+    background-color: white;
+    display: inline-block;
+    text-align: center;
+} */

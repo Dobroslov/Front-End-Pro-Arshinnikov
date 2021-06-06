@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Arshinnikov Vladimir">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="JS, To Do List,">
+    <link rel="stylesheet" href="./style.css">
+    <script async src="./script.js"></script>
+    <title>To Do List</title>
+</head>
+<body>
+    <div class="main-container">
+        <table class="table">
+        <caption>Список контактов</caption>
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Телефонный номер</th>
+                <th>Действие</th>
+            </tr> <!--ряд с ячейками заголовков-->
+            <tr id="user-information">
+                <td id="user-name">Владимир</td>
+                <td id="user-surname">Арш</td>
+                <td id="user-tel">0992296853</td>
+                <td><button class="button-delete-user">Удалить</button></td>
+            </tr> <!--ряд с ячейками тела таблицы-->
+            <tr class="input-user-information">
+                <td class="cell__input-name"><input type="text" id="input-name"></td>
+                <td class="cell__input-surname"><input type="text" id="input-surname"></td>
+                <td class="cell__input-tel"><input type="tel" id="input-tel"></td>
+                <td><button class="button-add-user">Добавить</button></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
