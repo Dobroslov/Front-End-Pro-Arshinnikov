@@ -13,7 +13,7 @@ th {
 /* границы ячеек тела таблицы */
 td {
     border: 2px solid rgb(68, 117, 251);
-    width: 200px;
+    min-width: 100px;
     height: 30px;
 }
 
