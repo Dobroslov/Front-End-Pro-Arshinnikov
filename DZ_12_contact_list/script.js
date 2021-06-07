@@ -4,7 +4,7 @@
 
 // Также нужно реализовать валидацию, чтобы нельзя было добавить контакт с каким-то пустым полем
 
-const contactEl = document.getElementById('input-user-information');
+const listContacts = document.getElementById('input-user-information');
 const inputNewUserName = document.getElementById('input-name');
 const inputNewUserSurname = document.getElementById('input-surname');
 const inputNewUserTelefon = document.getElementById('input-tel');
@@ -28,24 +28,23 @@ document.getElementById('button-add-user').addEventListener('click', onAddNewUse
 init();
 
 function onAddNewUserBtnClick () { // начало функции 'on' даёт понять что это обработчик события, дальше указывается элемент на который мы вешаем обработчик события 'NewUserBtn' и потом само событие "click"
-  if (isInputValue(inputNewUserName.value)) {
-    // console.log('add', inputNewUserName.value);
+  if (isInputValue(inputNewUserName.value, inputNewUserSurname.value, inputNewUserTelefon.value)) {
+    // console.log('add', inputNewUserName.value, inputNewUserSurname.value, inputNewUserTelefon.value);
     addNewUser(inputNewUserName.value, inputNewUserSurname.value, inputNewUserTelefon.value);
     resetForms();
   }
   // console.log('clicked', inputNewUserName.value);
 }
 
-function isInputValue (str) { // валидация вводимых данных
-  return str.trim() !== ''; //---------------------------------------------------------------- доделать
+function isInputValue (str, str1, num) { // валидация вводимых данных
+  return str.trim() !== '' && str1.trim() !== '' && num.trim() !== ''; 
 }
 
 function addNewUser(name, surname, tel) { // добавление нового пользователя с его данными
   // console.log('add', name, surname, tel);  
   const newUserTemplate = getNewUserTemplate(name, surname, tel);
-
-  contactEl.insertAdjacentHTML('beforeend', newUserTemplate);
-
+  console.log('add template', newUserTemplate);
+  listContacts.insertAdjacentHTML('beforeend', newUserTemplate);
 }
 
 function resetForms () {
@@ -55,10 +54,9 @@ function resetForms () {
 }
 
 
+function getNewUserTemplate (name, surname, tel) { // добавление формы для контакта 
 
- function getNewUserTemplate (name, surname, tel) {
-
-  return NEW_USER_TEMPLATE.replace('');
+  return NEW_USER_TEMPLATE.replace('$name$', name).replace('$surname$', surname).replace('$tel$', tel); // добавление значения в форме которое ввёл пользователь
  }
  
 function init () {
@@ -67,4 +65,3 @@ function init () {
   addNewUser('Name 3', 'surname 3', 'tel 3'); // автозаполнение нескольких строк
   
 }
-
