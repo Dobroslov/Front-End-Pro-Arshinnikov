@@ -17,9 +17,10 @@ td {
     height: 30px;
 }
 
-.input-table {
+#input-table {
     border: 2px solid rgb(68, 117, 251);
     border-collapse: collapse;
+    min-width: 200px;
 }
 
 .main-container {
