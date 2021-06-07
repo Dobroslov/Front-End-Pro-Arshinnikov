@@ -13,11 +13,14 @@ th {
 /* границы ячеек тела таблицы */
 td {
     border: 2px solid rgb(68, 117, 251);
-    min-width: 100px;
+    min-width: 200px;
     height: 30px;
 }
 
-
+.input-table {
+    border: 2px solid rgb(68, 117, 251);
+    border-collapse: collapse;
+}
 
 .main-container {
     width: 900px;

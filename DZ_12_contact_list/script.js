@@ -4,7 +4,7 @@
 
 // Также нужно реализовать валидацию, чтобы нельзя было добавить контакт с каким-то пустым полем
 
-const listContacts = document.getElementById('input-user-information');
+const listContacts = document.getElementById('table-contact');
 const inputNewUserName = document.getElementById('input-name');
 const inputNewUserSurname = document.getElementById('input-surname');
 const inputNewUserTelefon = document.getElementById('input-tel');
@@ -45,6 +45,7 @@ function addNewUser(name, surname, tel) { // добавление нового �
   const newUserTemplate = getNewUserTemplate(name, surname, tel);
   console.log('add template', newUserTemplate);
   listContacts.insertAdjacentHTML('beforeend', newUserTemplate);
+  
 }
 
 function resetForms () {
