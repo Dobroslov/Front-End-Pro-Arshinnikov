@@ -72,7 +72,7 @@ span {
   min-width: 400px;
   color: #458ff6;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
   line-height: 1.1;
   border-radius: 7px;
   border: #458ff6 solid 1px;
@@ -130,7 +130,7 @@ button:hover {
   font-size: 18px;
   line-height: 1.8;
   color: #7d7987;
-} */
+}
 
 /* .delete-btn {
   min-width: 100px;
@@ -156,9 +156,9 @@ button:hover {
   transition: 0.3s linear;
 } */
 
-/* i {
-    cursor: pointer;
-} */
+#task-list {
+  cursor: pointer;
+}
 
 #buttons {
   display: inline-block;
@@ -233,7 +233,8 @@ button:hover {
   opacity: 1;
   margin-left: 5px;
 }
-*/ .checked {
-  color: gray;
+.done {
+  color: rgb(255, 255, 255);
   text-decoration: line-through;
+  background-color: rgba(84, 137, 223, 0.863);
 }

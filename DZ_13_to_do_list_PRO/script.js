@@ -6,7 +6,7 @@ document
   .getElementById('add-task-btn')
   .addEventListener('click', onAddNewTaskBtn);
 
-taskList.addEventListener('click', onTaskListClick);
+taskList.addEventListener('click', onTaskListElementClick);
 
 function onAddNewTaskBtn() {
   if (isInputValue(inputText.value)) {
@@ -29,7 +29,18 @@ function getNewTemplateTask(value) {
   return templateTask.replace('$content$', value);
 }
 
-function onTaskListClick() {}
+function onTaskListElementClick(event) {
+  // event - это объетк события, в котором много разной информации о событии, в том числе и его место и его значение
+  if (event.target.classList.contains('task-string')) {
+    // у цели события через classList проверяю есть ли такой класс у элемента как (task-string), тут это класс строки с задачей, если нет, то пропуск, если есть, то меняю цвет
+    toggleListElement(event.target); // запускаю функцию смены класса и в неё передаю таргет(объект или конкретный элемент, на котором это событие произошло)
+  }
+}
+
+function toggleListElement(element) {
+  // переключаем класс(цвет) на элементе списка
+  element.classList.toggle('done');
+}
 
 function isInputValue(text) {
   return text.trim() !== '';
