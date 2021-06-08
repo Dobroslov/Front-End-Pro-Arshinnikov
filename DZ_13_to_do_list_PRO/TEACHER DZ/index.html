@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Arshinnikov Vladimir">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="JS, To Do List,">
+    <link rel="stylesheet" href="./style.css">
+    <script async src="./script.js"></script>
+    <title>To Do List</title>
+</head>
+<body>
+  <ol id="list"></ol>
+  <div>
+    <input type="text" id="newTaskInput"/>
+    <button id="addTodoBtn">Добавить задачу</button>
+  </div>
+  <script id="newTodoTemplate" type="text/template">     
+    <div class="todo-item">
+    {{title}}
+    <span class="deleteBtn">X</span>
+    </div>
+  </script>
+  <!-- type="text/template добавляем специально такой тип в теге script "template" через слеш, чтоб барузер не знал что применить  -->
+</body>
+</html>
