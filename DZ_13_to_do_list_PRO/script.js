@@ -31,7 +31,7 @@ function getNewTemplateTask(value) {
 
 function onTaskListElementClick(event) {
   // event - это объетк события, в котором много разной информации о событии, в том числе и его место и его значение
-  if (event.target.classList.contains('task-string')) {
+  if (event.target.classList.contains('text-task')) {
     // у цели события через classList проверяю есть ли такой класс у элемента как (task-string), тут это класс строки с задачей, если нет, то пропуск, если есть, то меняю цвет
     toggleListElement(event.target); // запускаю функцию смены класса и в неё передаю таргет(объект или конкретный элемент, на котором это событие произошло)
   }
