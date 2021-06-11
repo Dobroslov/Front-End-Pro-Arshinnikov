@@ -1,17 +1,19 @@
 const DELETED_BTN_CLASS = 'delete-btn';
-const TEXT_TASK_CLASS = 'text-task';
+const USER_TASK_CLASS = 'text-task';
 
 const inputText = document.getElementById('input-task');
 const templateTask = document.getElementById('task-template').innerHTML; // innerHTML позволяет получить HTML-содержимое элемента в виде строки.
 const taskList = document.getElementById('task-list');
 
-const userTaskList = [];
+let userTasksList = [];
 
 document
   .getElementById('add-task-btn')
   .addEventListener('click', onAddNewTaskBtn);
 
 taskList.addEventListener('click', onTaskListElementClick);
+
+initTaskList();
 
 function onAddNewTaskBtn() {
   if (isInputValue(inputText.value)) {
@@ -22,16 +24,17 @@ function onAddNewTaskBtn() {
 }
 
 function addTask(task) {
-  userTaskList.push(task); // когда приходить новая задача, она добавляется в массив списка задач
+  userTasksList.push(task); // когда приходить новая задача, она добавляется в массив списка задач
   // saveToStorage();
-  renderAllTasks(userTaskList); //функция которая создаёт все контакты из массива с последними изменениями
+  saveStorage();
+  renderAllTasks(userTasksList); //функция которая создаёт все контакты из массива с последними изменениями
 }
 
 function renderAllTasks(arrListTask) {
   taskList.innerHTML = ''; // делаю шаблон пустым
   arrListTask.forEach((element) => {
-    renderTask(element); // массив с объектами задач перебираю через forEach и наполняю каждые элемент через шаблон
-  });
+    renderTask(element);
+  }); // массив с объектами задач перебираю через forEach и наполняю каждые элемент через шаблон
 }
 
 function renderTask(task) {
@@ -44,13 +47,19 @@ function renderTask(task) {
 function onTaskListElementClick(event) {
   // функция по выполнению которой меняется выделение выбранной задачи на выполненную
   // event - это объетк события, в котором много разной информации о событии, в том числе и его место и его значение
-  if (event.target.classList.contains(TEXT_TASK_CLASS)) {
+  if (event.target.classList.contains(USER_TASK_CLASS)) {
     // у цели события через classList проверяю есть ли такой класс у элемента как (task-string), тут это класс строки с задачей, если нет, то пропуск, если есть, то меняю цвет
     toggleListElement(event.target); // запускаю функцию смены класса и в неё передаю таргет(объект или конкретный элемент, на котором это событие произошло)
   }
   if (event.target.classList.contains(DELETED_BTN_CLASS)) {
-    deleteListElement(event.target.closest('.' + TEXT_TASK_CLASS)); // запуск функции, которая удалить элемент в неё передаю селектор ".delete-btn"
+    const taskId = getTaskId(event.target);
+    deleteTask(taskId);
   }
+}
+
+function getTaskId(element) {
+  const row = element.closest('.' + USER_TASK_CLASS);
+  return +row.dataset.taskId; // приведение к числу, так как на выходе dataset получается строка
 }
 
 function toggleListElement(element) {
@@ -58,10 +67,12 @@ function toggleListElement(element) {
   element.classList.toggle('done');
 }
 
-function deleteListElement(element) {
-  // функция удаления строки задачи(шаблона). Сюда приходит через element - event.target
-
-  element.remove();
+function deleteTask(id) {
+  // функция удаления строки задачи(шаблона). Сюда приходит через element - id строки которую нужно удалить
+  userTasksList = userTasksList.filter((task) => task.id !== id); //Метод filter() создаёт новый массив со всеми элементами, прошедшими проверку, задаваемую в передаваемой функции? поэтому я переписываю имеющийся массив и оставляю там все элементы, которые не соответствуют выброному ID
+  saveStorage();
+  renderAllTasks(userTasksList);
+  // removeTaskElement(id);
 }
 
 function isInputValue(text) {
@@ -86,19 +97,21 @@ function getFormTaskDate() {
   };
 }
 
-init();
+function saveStorage() {
+  localStorage.setItem('userTasksList', JSON.stringify(userTasksList)); //localStorage - обращаюсь к локальному хранилищу, setItem - запиши в своё хрнилище следующие данные, 'userTasksList' - ключ, userTasksList - значение. JSON. - формат для хранения JS объектов и массивов, Метод JSON.stringify() преобразует значение JavaScript в строку JSON
+}
 
-function init() {
-  addTask({
-    id: Date.now(), //создаётся рандомное число, опираясь на текущее время
-    taskContent: 'Это задача 1',
-  });
-  addTask({
-    id: Date.now(),
-    taskContent: 'Это задача 2',
-  });
-  addTask({
-    id: Date.now(),
-    taskContent: 'Это задача 3',
-  });
+function restoreFromStorage() {
+  const data = localStorage.getItem('userTasksList');
+  // localStorage - обращаюсь к локальному хранилищу, getItem - верни данные, 'userTasksList' - вот этого ключа.  Метод JSON.parse() разбирает строку JSON возвращает объект Object, соответствующий переданной строке JSON
+  if (data !== null) {
+    userTasksList = JSON.parse(data);
+  } else {
+    userTasksList = [];
+  }
+}
+
+function initTaskList() {
+  restoreFromStorage();
+  renderAllTasks(userTasksList);
 }
