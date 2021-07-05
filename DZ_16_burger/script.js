@@ -83,86 +83,85 @@
 
 // --------------------------------------------------------------------------------
 
-
-
 class Hamburger {
   constructor(hamburger) {
     this.burger = hamburger;
-    this.staffing = [];
+    this.stuffings = [];
   }
 
   static BIG_SIZE_BURGER = {
-    name: 'BIG_SIZE_BURGER',
+    name: 'Большой бургер',
     price: 100,
     calories: 40,
   };
-  static SIZE_SMALL_BURGER = {
-    name: 'SIZE_SMALL_BURGER',
+  static SMALL_SIZE_BURGER = {
+    name: 'Маленький бургер',
     price: 50,
     calories: 20,
   };
-  static SIZE_LARGE_BURGER = {
+  static MEDIUM_SIZE_BURGER = {
     price: 50,
-    name: 'SIZE_LARGE_BURGER',
+    name: 'Средний бургер',
     calories: 20,
   };
 
   static STUFFING_CHEESE = {
-    name: 'STUFFING_CHEESE',
+    name: 'сырной начинкой',
     price: 10,
     calories: 20,
   };
   static STUFFING_SALAD = {
-    name: 'STUFFING_SALAD',
+    name: 'салатом',
     price: 20,
     calories: 5,
   };
   static STUFFING_POTATO = {
-    name: 'STUFFING_POTATO',
+    name: 'картошкой',
     price: 15,
     calories: 10,
   };
 
   static STUFFING_MAYO = {
-    name: 'STUFFING_MAYO',
+    name: 'с майонезом',
     price: 15,
     calories: 0,
   };
   static STUFFING_SPICE = {
-    name: 'STUFFING_SPICE',
+    name: 'с приправой',
     price: 10,
     calories: 5,
   };
-  
-  addStaffing(staffing) {
-    return this.staffing.push(staffing);
+
+  addStuffing(newStuffing) {
+    return this.stuffings.push(newStuffing);
+  }
+  get getStuffings() {
+    return this.stuffings;
   }
 
-  calculateCalories() {
-    const caloriesArr = this.staffing.map(
-      (staffingItem) => staffingItem.calories
+  getCalories() {
+    const caloriesArr = this.stuffings.map(
+      (stuffingItem) => stuffingItem.calories
     );
-    console.log(caloriesArr);
     let calories = caloriesArr.reduce((acc, calories) => acc + calories, 0);
-    let resultCalories =
-      calories + this.burger.calories + this.stuffing.calories;
+    let resultCalories = calories + this.burger.calories;
     return resultCalories;
   }
 
-  calculatePrice() {
-    const priceArr = this.staffing.map((staffingItem) => staffingItem.price);
+  getPrice() {
+    const priceArr = this.stuffings.map((staffingItem) => staffingItem.price);
     let price = priceArr.reduce((acc, prices) => acc + prices, 0);
-    let resultPrice = price + this.burger.price + this.stuffing.price;
+    let resultPrice = price + this.burger.price;
     return resultPrice;
   }
 }
 
 const hamburger1 = new Hamburger(Hamburger.BIG_SIZE_BURGER);
 
-hamburger1.addStaffing(Hamburger.STAFFING_MAYONNAISE);
-hamburger1.addStaffing(Hamburger.STAFFING_SEASONING);
-
-// console.log('Цена с соусом: ' + hamburger1.getPrise);
-// console.log('Калории с соусом: ' + hamburger1.getCalories);
-console.log('Количество калорий', hamburger1.calculateCalories());
-console.log('Цена за бургер', hamburger1.calculatePrice());
+hamburger1.addStuffing(Hamburger.STUFFING_MAYO);
+hamburger1.addStuffing(Hamburger.STUFFING_SPICE);
+console.log(
+  `Вы выбрали: ${hamburger1.burger.name} c ${hamburger1.getStuffings.length} начинками`
+);
+console.log(`Количество калорий: ${hamburger1.getCalories()}`);
+console.log(`Цена за бургер: ${hamburger1.getPrice()}`);
