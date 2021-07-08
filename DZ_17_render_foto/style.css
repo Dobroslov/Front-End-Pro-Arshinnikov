@@ -1,0 +1,22 @@
+.body {
+  height: 100vh;
+}
+
+#list-photo {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.photo-user {
+  list-style: none;
+    padding: 0px;
+    margin: 5px;
+    width: 30%;
+    
+}
+
+img {
+    margin: 0.9px;
+}
