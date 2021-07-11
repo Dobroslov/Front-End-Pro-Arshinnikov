@@ -120,12 +120,12 @@ class Hamburger {
     price: 15,
     calories: 10,
   };
-
   static STUFFING_MAYO = {
     name: 'с майонезом',
     price: 15,
     calories: 0,
   };
+
   static STUFFING_SPICE = {
     name: 'с приправой',
     price: 10,
@@ -138,14 +138,25 @@ class Hamburger {
   get getStuffings() {
     return this.stuffings;
   }
-
+  get getStuffingsList() {
+    const listStuffings = [];
+    this.stuffings.forEach((element) => {
+      listStuffings.push(element.name);
+    });
+    return listStuffings.join(', ');
+  }
   getCalories() {
-    const caloriesArr = this.stuffings.map(
-      (stuffingItem) => stuffingItem.calories
+    // const caloriesArr = this.stuffings.map(
+    //   (stuffingItem) => stuffingItem.calories
+    // );
+    // let calories = caloriesArr.reduce((acc, calories) => acc + calories, 0);
+    // let resultCalories = calories + this.burger.calories;
+    // return resultCalories;
+
+    return this.stuffings.reduce(
+      (acc, stuffing) => acc + stuffing.calories,
+      this.burger.calories
     );
-    let calories = caloriesArr.reduce((acc, calories) => acc + calories, 0);
-    let resultCalories = calories + this.burger.calories;
-    return resultCalories;
   }
 
   getPrice() {
@@ -161,7 +172,7 @@ const hamburger1 = new Hamburger(Hamburger.BIG_SIZE_BURGER);
 hamburger1.addStuffing(Hamburger.STUFFING_MAYO);
 hamburger1.addStuffing(Hamburger.STUFFING_SPICE);
 console.log(
-  `Вы выбрали: ${hamburger1.burger.name} c ${hamburger1.getStuffings.length} начинками`
+  `Вы выбрали: ${hamburger1.burger.name} c ${hamburger1.getStuffingsList}. Итого: ${hamburger1.getStuffings.length} начинками`
 );
 console.log(`Количество калорий: ${hamburger1.getCalories()}`);
 console.log(`Цена за бургер: ${hamburger1.getPrice()}`);
