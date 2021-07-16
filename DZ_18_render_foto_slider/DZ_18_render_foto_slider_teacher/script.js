@@ -1,4 +1,4 @@
-'use strict';
+
 
 const ALBUM_URL = 'https://jsonplaceholder.typicode.com/albums'; // ссылка для альбомов
 const PHOTOS_URL =
@@ -58,6 +58,7 @@ function renderAlbums(data) {
     .map((album) => generateAlbumHtml(album)) // массив превращаю в строку
     .join('\n'); // соединяю все строки в одну строку с переносом строки в одну HTML строку
 }
+
 albumsEl.addEventListener('click', onAlbumsClick);
 
 function generateAlbumHtml(album) {

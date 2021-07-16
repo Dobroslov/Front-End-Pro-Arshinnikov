@@ -1,6 +1,8 @@
+'use strict';
+
 const PHOTOS_URL = 'https://jsonplaceholder.typicode.com/photos?_limit=100';
 const PAGE_SIZE = 7; // задаю колличество элементов на странице
-
+const LIST_PAGINATION_CLASS = 'page';
 const photosEl = document.querySelector('#photos'); // выбираю элемент или контейнер, в котором будут храниться фотографии
 const paginationListElement = document.getElementById('pagination'); // выбираю элемент ul для хранения кнопок
 const photoItemTemplate =
@@ -14,15 +16,12 @@ function init() {
 
 function getPhotos() {
   return fetch(PHOTOS_URL) // получаю промис из ссылки
-    .then((resp) => resp.json()) // преобразую промис с помощью json
-    .then((data) => {
-      // renderPhotos(data);
-      return data;
-    });
+    .then((resp) => resp.json()); // преобразую промис с помощью json
 }
 
-function renderData(arr) { // передаю массив из промиса и рендерю его
-  let pagination = getPaginationObj(arr); 
+function renderData(arr) {
+  // передаю массив из промиса и рендерю его
+  let pagination = getPaginationObj(arr);
   // получаю класс с его параметрами и методами
   renderPagination(pagination);
   renderContent(arr, pagination);
@@ -33,8 +32,8 @@ function getPaginationObj(arr) {
   return new Pagination(PAGE_SIZE, arr.length, 1); // возвращаю новый объект с задаными параметрами: 1) количество элементов на странице 2) общее количество элементов в массиве 3) значение или номер выбранной страницы по умолчанию
 }
 
-
-function renderPagination(pagination) { // визуализация кнопок переключающих страницы с фотографиями
+function renderPagination(pagination) {
+  // визуализация кнопок переключающих страницы с фотографиями
   for (let index = 0; index < pagination.getPagesNumber(); index++) {
     paginationListElement.insertAdjacentHTML(
       'beforeend',
@@ -47,7 +46,13 @@ function getPaginationItemHtml(index) {
   return '<li class="page">{{number}}</li>'.replace('{{number}}', index); // заменяю в шаблоне элемент "{{number}}" на номер страницы
 }
 
+paginationListElement.addEventListener('click', onPaginationListElementClick);
 
+function onPaginationListElementClick(e) {
+  if (e.target.classList.contains(LIST_PAGINATION_CLASS)) {
+    renderContent(arr, pagination);
+  }
+}
 function renderContent(arr, pagination) {
   // передаётся весь массив со всеми фотографиями и класс pagination
   pagination.setActivePageNumber(1);
@@ -70,9 +75,3 @@ function generatorPhotoHTML(photo) {
     .replace('{{title}}', photo.title);
 }
 // ререндер контента по клику на элемент pagination списка (li)
-
-// function generateButtonHtml(album) {
-//   return buttonTemplate
-//     .replace('{{id}}', album.id)
-//     .replace('{{title}}', album.albumId);
-// }

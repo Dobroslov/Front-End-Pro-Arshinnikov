@@ -1,5 +1,5 @@
 .body {
-  height: 100vh;
+  height: 100vh;  
 }
 
 .albums {
@@ -12,16 +12,26 @@ img {
   margin: 0.9px;
 }
 
-.photos {
-  width: 1800px;
-  position: absolute;
-  right: 230px;
-  top: 30px;
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
-.container {
-  position: relative;
+li {
+  border: solid black 1px;
+  padding: 10px;
+  margin: 5px;
+}
 
-  margin-left: auto;
-  margin-right: auto;
+#pagination {
+  display: flex;
+  padding: 0;
+  list-style-type: none;
+}
+
+#pagination li:hover, #pagination li.active {
+  cursor: pointer;
+  color: red;
+  border: solid red 1px;
 }
