@@ -1,0 +1,27 @@
+.body {
+  height: 100vh;
+}
+
+.albums {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 300px;
+}
+img {
+  margin: 0.9px;
+}
+
+.photos {
+  width: 1800px;
+  position: absolute;
+  right: 230px;
+  top: 30px;
+}
+
+.container {
+  position: relative;
+
+  margin-left: auto;
+  margin-right: auto;
+}
