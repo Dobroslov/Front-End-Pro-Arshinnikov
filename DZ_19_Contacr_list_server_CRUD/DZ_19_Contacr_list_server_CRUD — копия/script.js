@@ -22,24 +22,23 @@
 
 const CONTACT_LIST_URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/users/';
 const ADD_CONTACT_BTN = document.getElementById('add-contact-btn');
-const DELETE_CONTACT_BTN = document.getElementById(
-  'button-delete-contact-$index$'
-);
-let contactsList = [];
+
 
 const listContacts = document.getElementById('list-contacts');
 const inputContactName = document.getElementById('input-contact-name');
-const inputContactSurname = document.getElementById('input-contact-surname');
-const inputContactTel = document.getElementById('input-contact-tel');
+const inputContactPhone = document.getElementById('input-contact-phone');
+const inputContactEmail = document.getElementById('input-contact-email');
 const contactTemplate = document.getElementById(
   'contact-template-html'
 ).innerHTML; // фрагмент из html заключённый в скрипт теге
 const contactName = document.getElementById('contact-name');
-const contactSurname = document.getElementById('contact-surname');
-const contactTel = document.getElementById('contact-tel');
+const contactPhone = document.getElementById('contact-phone');
+const contactEmail = document.getElementById('contact-email');
 
-ADD_CONTACT_BTN.addEventListener('click', onAddNewUserBtnClick); // получаю элемент кнопку, назначаю ей событие по клику и запускаю функцию
+ADD_CONTACT_BTN.addEventListener('click', onAddNewContactBtnClick); // получаю элемент кнопку, назначаю ей событие по клику и запускаю функцию
+listContacts.addEventListener('click', onDeleteContactBtnClick);
 
+let contactsList = [];
 init();
 
 function init() {
@@ -57,11 +56,10 @@ function setContactsList(data) {
 }
 
 function renderList(list) {
-  console.log(list);
   listContacts.innerHTML = list.map(getItemHtml).join('');
 }
 
-function getItemHtml({ id, name, phone, email }) { 
+function getItemHtml({ id, name, phone, email }) {
   return contactTemplate
     .replace('{{name}}', name)
     .replace('{{phone}}', phone)
@@ -70,71 +68,75 @@ function getItemHtml({ id, name, phone, email }) {
 }
 
 function onAddNewContactBtnClick() {
+  const newContact = getFormData();
   if (
     isInputValue(
-      inputNewUserName.value,
-      inputNewUserSurname.value,
-      inputNewUserTelefon.value
+      inputContactName.value,
+      inputContactPhone.value,
+      inputContactEmail.value
     )
   ) {
-    // console.log('add', inputNewUserName.value, inputNewUserSurname.value, inputNewUserTelefon.value);
-    addNewUser(
-      inputNewUserName.value,
-      inputNewUserSurname.value,
-      inputNewUserTelefon.value
-    );
+    createNewContact(newContact);
 
     resetForms();
   }
   // console.log('clicked', inputNewUserName.value);
 }
 
-// function isInputValue(name, surname, tel) {
-//   // валидация вводимых данных
-//   return name.trim() !== '' && surname.trim() !== '' && tel.trim() !== ''; // trim обрезает пробелы по бокам строки
-// }
+function getFormData() {
+  return {
+    name: inputContactName.value,
+    phone: inputContactPhone.value,
+    email: inputContactEmail.value,
+  };
+}
 
-// function addNewUser(name, surname, tel) {
-//   // добавление нового пользователя с его данными
-//   // console.log('add', name, surname, tel);
-//   let currentIndex = document.getElementsByClassName('user-information').length; // получаю колличество элементов в таблице с контактами и присваиваю это значение переменной
-//   const newUserTemplate = getNewUserTemplate(name, surname, tel, currentIndex); // здесь готовый и заполненный шаблон данными нового пользователя
-//   // console.log('add template', newUserTemplate);
-//   listContacts.insertAdjacentHTML('beforeend', newUserTemplate); // вставляю HTML код на страницу "на лету"
+function resetForms() {
+  // сбрасываем форму для заполнения на пустую
+  inputContactName.value = '';
+  inputContactPhone.value = '';
+  inputContactEmail.value = '';
+}
 
-//   addEventForDeleteBtn(currentIndex); // внутри функции в которой создаётся пользователь я создаю функцию удаление пользователя и в аргумент добавляю порядковый номер пользователя
-// }
+function isInputValue(name, tel, email) {
+  // валидация вводимых данных
+  return name.trim() !== '' && tel.trim() !== '' && email.trim() !== ''; // trim обрезает пробелы по бокам строки
+}
 
-// function resetForms() {
-//   // сбрасываем форму для заполнения на пустую
-//   inputNewUserName.value = '';
-//   inputNewUserSurname.value = '';
-//   inputNewUserTelefon.value = '';
-// }
+function createNewContact(newContact) {
+  fetch(CONTACT_LIST_URL, {
+    method: 'POST',
+    body: JSON.stringify(newContact),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((resp) => resp.json())
+    .then(addContact);
+}
 
-// function getNewUserTemplate(name, surname, tel, index) {
-//   // добавление значение инпутов в HTML шаблон
+function addContact(contact) {
+  contactsList.push(contact);
+  renderList(contactsList);
+}
 
-//   return newUserTemplate
-//     .replace('$name$', name)
-//     .replace('$surname$', surname)
-//     .replace('$tel$', tel)
-//     .replace('$index$', index); // здесь добавляется порядковый номер в id для кнопки delete оно берётся из "let currentIndex ="
-//   // добавление значения в форме, которое ввёл пользователь через инпут
-// }
+function onDeleteContactBtnClick(event) {
+  const contactId = getContactId(event.target);
+  console.log(contactId);
+  if (event.target.classList.contains('button-delete-contact')) {
+    deleteContact(contactId);
+  }
+}
 
-// function addEventForDeleteBtn(index) {
-//   // в аргументе передан порядковый номер пользователя
-//   let deleteButton = document.getElementById('button-delete-user-' + index); // получаю
-//   deleteButton.addEventListener('click', onDeleteUserBtnClick); // создаю событие клика по кнопке удалить и запускаю функцию удаления
-//   console.log(deleteButton);
-//   // получаю элемент кнопку удаления пользователя назначаю ей событие по клику и запускаю функцию
-// }
+function getContactId(element) {
+  // console.log(element.closest('.contact-item').dataset.contactId);
+  return element.closest('.contact-item').dataset.contactId;
+}
 
-// function onDeleteUserBtnClick(event) {
-//   // фунция удаления элемента, в скобках объект события
-//   let target = event.target; // получаем ссылку на ДОМ элемент на котором произошло событие
-//   let targetRow = target.closest('.user-information'); // метод closest возвращает ближайший родительский элемент (или сам элемент), который соответствует заданному CSS-селектору (.user-information)
-//   targetRow.remove(); // удаляет элемент из DOM дерева
-//   // console.log('clicked', targetRow);
-// }
+function deleteContact(contactId) {  
+  fetch(CONTACT_LIST_URL + contactId, {
+    method: 'DELETE',
+  }).then(() => {
+    contactsList = contactsList.filter((item) => item.id !== contactId);
+    renderList(contactsList)});
+}

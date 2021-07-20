@@ -19,8 +19,8 @@
         <thead>
           <tr>
             <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Телефонный номер</th>
+            <th>Телефон</th>
+            <th>Email</th>
             <th>Действие</th>
           </tr>
         </thead>
@@ -29,8 +29,8 @@
         <tfoot>
           <tr id="input-user-information">
             <td><input type="text" id="input-contact-name" /></td>
-            <td><input type="text" id="input-contact-surname" /></td>
-            <td><input type="tel" id="input-contact-tel" /></td>
+            <td><input type="text" id="input-contact-phone" /></td>
+            <td><input type="tel" id="input-contact-email" /></td>
             <td><button id="add-contact-btn">Добавить</button></td>
           </tr>
         </tfoot>
@@ -41,7 +41,7 @@
         <td class="contact-name">{{name}}</td>
         <td class="contact-phone">{{phone}}</td>
         <td class="contact-email">{{email}}</td>
-        <td><button id="button-delete-contact-$index$">Удалить</button></td>
+        <td><button class="button-delete-contact">Удалить</button></td>
       </tr> <!-- ряд с ячейками тела таблицы -->
     </script>
   </body>
