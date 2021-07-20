@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="Arshinnikov Vladimir" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="JS, To Do List," />
+    <link rel="stylesheet" href="./style.css" />
+    <script async src="./script.js"></script>
+    <title>To Do List</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <table id="table-contact">
+        <caption>
+          Список контактов
+        </caption>
+        <thead>
+          <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Телефонный номер</th>
+            <th>Действие</th>
+          </tr>
+        </thead>
+        <!--ряд с ячейками заголовков-->
+        <tbody id="list-contacts"></tbody>
+        <tfoot>
+          <tr id="input-user-information">
+            <td><input type="text" id="input-contact-name" /></td>
+            <td><input type="text" id="input-contact-surname" /></td>
+            <td><input type="tel" id="input-contact-tel" /></td>
+            <td><button id="add-contact-btn">Добавить</button></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <script id="contact-template-html" type="text/template">
+      <tr class="contact-item" data-contact-id={{id}}>
+        <td class="contact-name">{{name}}</td>
+        <td class="contact-phone">{{phone}}</td>
+        <td class="contact-email">{{email}}</td>
+        <td><button id="button-delete-contact-$index$">Удалить</button></td>
+      </tr> <!-- ряд с ячейками тела таблицы -->
+    </script>
+  </body>
+</html>
