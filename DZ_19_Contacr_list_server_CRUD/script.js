@@ -1,109 +1,109 @@
 'use strict';
 
-// 1) Список:
-//   а) Получить список с сервера
-//   б) Рендер списка
-// 2)Создание записи:
-//   а) Получить данные формы
-//   б) Валидация данных
-//   в) Отправить на сервер
-// 3) Toggle
-//   а) О ком речь
-//   б) поменять признак
-//   в) отправить на сервер
-//   г) отрендерить
-// 4)Удалине:
-//   а) о ком речь
-//   б) отправить
-//   в) удалить
-// Прикидываем какие есть похожие вещи
+// url: https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/users/
 
-const NEW_CONTACT_TEMPLATE = ``;
-const CONTACTS_URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/users/';
+// Реализовать список контактов
 
-const template = document.getElementById('newContactTemlate').innerHTML;
-const contactEl = document.getElementById('contactList');
-const nameEl = document.getElementById('newInputName');
-const phoneEl = document.getElementById('newInputPhone');
-const emailEl = document.getElementById('newInputEmail');
-const addContactForm = document.getElementById('addContactBtn');
+// Список пользователей в виде таблицы, таблица состоит из 4-х колонок:
 
-addContactForm.addEventListener('click', onAddContactFormSubmit);
-contactEl.addEventListener('click', onDeleteButtonClick);
+// имя, email, телефон, действия
+
+// Под таблицей форма добавления с теми же тремя полями.
+
+// В колонке действия две кнопки редактировать и удалить.
+
+// При клике по кнопке Редактировать в таблице, форма заполняется данными из этой строки.
+
+// При самбите формы, происходит сохранение данных добавление/редактирование, в зависимости от того был ли клик по строке.
+
+// При клике по удалить - удаляется с сервера.
+
+// Редактирование - это дополнительное задание
+
+const CONTACT_LIST_URL = 'https://5dd3d5ba8b5e080014dc4bfa.mockapi.io/users/';
+const ADD_CONTACT_BTN = document.getElementById('add-contact-btn');
+
+const listContacts = document.getElementById('list-contacts');
+const inputContactName = document.getElementById('input-contact-name');
+const inputContactPhone = document.getElementById('input-contact-phone');
+const inputContactEmail = document.getElementById('input-contact-email');
+const contactTemplate = document.getElementById(
+  'contact-template-html'
+).innerHTML; // фрагмент из html заключённый в скрипт теге
+const contactName = document.getElementById('contact-name');
+const contactPhone = document.getElementById('contact-phone');
+const contactEmail = document.getElementById('contact-email');
+
+ADD_CONTACT_BTN.addEventListener('click', onAddNewContactBtnClick); // получаю элемент кнопку, назначаю ей событие по клику и запускаю функцию
+listContacts.addEventListener('click', onDeleteContactBtnClick);
 
 let contactsList = [];
-
 init();
 
-function onAddContactFormSubmit(event) {
-  event.preventDefault();
-
-  submitForm();
-}
-
-function onDeleteButtonClick(event) {
-  const contactId = getContactId(event.target);
-  if (event.target.classList.contains('deleteBtn')) {
-    deleteContact(contactId);
-  }
-}
-
-function getContactId(el) {
-  return el.closest('.newContactRow').dataset.contactId;
-}
-
 function init() {
-  fetchContacts();
+  fetchContactsList();
 }
-
-function fetchContacts() {
-  fetch(CONTACTS_URL)
+function fetchContactsList() {
+  fetch(CONTACT_LIST_URL)
     .then((resp) => resp.json())
-    .then(setContacts)
+    .then(setContactsList)
     .then(renderList);
 }
 
-function setContacts(data) {
-  return (contacts = data);
+function setContactsList(data) {
+  return (contactsList = data);
 }
 
 function renderList(list) {
-  contactEl.innerHTML = list.map(getItemHtml).join('');
+  listContacts.innerHTML = list.map(getItemHtml).join('');
 }
 
-function getItemHtml({ name, phone, email, id }) {
-  return template
+function getItemHtml({ id, name, phone, email }) {
+  return contactTemplate
     .replace('{{name}}', name)
     .replace('{{phone}}', phone)
     .replace('{{email}}', email)
     .replace('{{id}}', id);
 }
 
-function submitForm() {
+function onAddNewContactBtnClick() {
   const newContact = getFormData();
+  if (
+    isInputValue(
+      inputContactName.value,
+      inputContactPhone.value,
+      inputContactEmail.value
+    )
+  ) {
+    createNewContact(newContact);
 
-  if (isInputValid(nameEl.value && phoneEl.value && emailEl.value)) {
-    createContact(newContact);
-    resetForm();
+    resetForms();
   }
+  // console.log('clicked', inputNewUserName.value);
 }
 
 function getFormData() {
-  return { name: nameEl.value, phone: phoneEl.value, email: emailEl.value };
+  return {
+    name: inputContactName.value,
+    phone: inputContactPhone.value,
+    email: inputContactEmail.value,
+  };
 }
 
-function resetForm() {
-  nameEl.value = '';
-  phoneEl.value = '';
-  emailEl.value = '';
+function resetForms() {
+  // сбрасываем форму для заполнения на пустую
+  inputContactName.value = '';
+  inputContactPhone.value = '';
+  inputContactEmail.value = '';
 }
 
-function isInputValid(str) {
-  return str.trim() !== '';
+function isInputValue(name, tel, email) {
+  // валидация вводимых данных
+  return name.trim() !== '' && tel.trim() !== '' && email.trim() !== ''; // trim обрезает пробелы по бокам строки
 }
 
-function createContact(newContact) {
-  fetch(CONTACTS_URL, {
+function createNewContact(newContact) {
+  fetch(CONTACT_LIST_URL, {
     method: 'POST',
     body: JSON.stringify(newContact),
     headers: {
@@ -115,16 +115,28 @@ function createContact(newContact) {
 }
 
 function addContact(contact) {
-  contacts.push(contact);
-  renderList(contacts);
+  contactsList.push(contact);
+  renderList(contactsList);
 }
 
-function deleteContact(id) {
-  fetch(CONTACTS_URL + id, {
+function onDeleteContactBtnClick(event) {
+  const contactId = getContactId(event.target);
+  console.log(contactId);
+  if (event.target.classList.contains('button-delete-contact')) {
+    deleteContact(contactId);
+  }
+}
+
+function getContactId(element) {
+  // console.log(element.closest('.contact-item').dataset.contactId);
+  return element.closest('.contact-item').dataset.contactId;
+}
+
+function deleteContact(contactId) {
+  fetch(CONTACT_LIST_URL + contactId, {
     method: 'DELETE',
   }).then(() => {
-    contacts = contacts.filter((item) => item.id !== id);
-    renderList(contacts);
+    contactsList = contactsList.filter((item) => item.id !== contactId);
+    renderList(contactsList);
   });
 }
-
