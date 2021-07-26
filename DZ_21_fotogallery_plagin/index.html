@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="Arshinnikov Vladimir" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="Фото галерея" />
+    <link rel="stylesheet" href="/styles/style_my.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/jquery.fancybox.css" />
+    <title>Список фотографий</title>
+  </head>
+
+  <body>
+    <h1 class="mt-12 mb-8 px-6 text-center text-lg md:text-2xl font-semibold">
+      Dribbble inspired design
+    </h1>
+
+    <div
+      class="images flex flex-wrap gap-5 justify-center max-w-5xl mx-auto px-6"
+    ></div>
+
+    <script type="text/template" id="photoItemTemplate">
+      <a data-fancybox="gallery" href="{{bigPhotoUrl}}"><img class="rounded" src="{{smallPhotoUrl}}" /></a>
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="/scripts/jquery.fancybox.js"></script>
+    <script defer src="/scripts/script.js"></script>
+  </body>
+</html>
