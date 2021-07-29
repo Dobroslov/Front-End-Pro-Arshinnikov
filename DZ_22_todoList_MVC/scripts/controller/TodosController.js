@@ -19,6 +19,8 @@ class TodosController {
     // функция для инициализации "view"
     this.todosView = new TodosView($el, {
       onDelete: this.deleteTodo.bind(this),
+      onAddTask: this.addTodo.bind(this),
+      onToggleTask: this.toggleTodo.bind(this),
     }); // инициализируем новый "view"
   }
 
@@ -26,12 +28,19 @@ class TodosController {
     this.todosView.renderList(this.todosCollection.list);
   }
 
-  deleteTodo(id) {
-    this.todosCollection.deleteTodo(id);
-    
-    this.renderList()
+  addTodo(todoItem) {
+    return this.todosCollection.addTodo(todoItem)
+    .then(() => this.renderList());
   }
 
+  toggleTodo(id) {
+    return this.todosCollection.toggleTodo(id).then(() => this.renderList());
+   
+  }
 
-  
+  deleteTodo(id) {
+    this.todosCollection.deleteTodo(id);
+
+    this.renderList();
+  }
 }

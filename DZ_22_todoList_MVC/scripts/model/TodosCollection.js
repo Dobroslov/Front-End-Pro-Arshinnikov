@@ -22,7 +22,37 @@ class TodosCollection {
     ); // возвращаем promis с уже обновлённым списком
   }
 
-  toggleElement() {
+  addTodo(todoItem) {
+    // console.log(todoItem);
+    // if (todoItem.title === ``) {
+    //   return;
+    // }
+
+    return fetch(this._url, {
+      method: 'POST',
+      body: JSON.stringify(todoItem),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((resp) => resp.json())
+      .then((data) => this.addData(data));
+  }
+
+  addData(data) {
+    this.list.unshift(data);
+  }
+
+  toggleTodo(id) {
+    this.item = this.list.find((item) => item.id == id);
+    this.item.isDone = !this.item.isDone;
     
+    return fetch(`${this._url}${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(this.item),
+      headers: {
+        'Content-type': 'application/json',
+      },
+    }).then((resp) => resp.json());
   }
 }
