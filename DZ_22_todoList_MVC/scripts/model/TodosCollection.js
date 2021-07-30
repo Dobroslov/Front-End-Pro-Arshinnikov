@@ -22,11 +22,10 @@ class TodosCollection {
     ); // возвращаем promis с уже обновлённым списком
   }
 
-  addTodo(todoItem) {
-    // console.log(todoItem);
-    // if (todoItem.title === ``) {
-    //   return;
-    // }
+  addTodo(todoItem) {    
+    if (todoItem.title === ``) {
+      return;
+    }
 
     return fetch(this._url, {
       method: 'POST',
@@ -46,6 +45,8 @@ class TodosCollection {
   toggleTodo(id) {
     this.item = this.list.find((item) => item.id == id);
     this.item.isDone = !this.item.isDone;
+    
+
     
     return fetch(`${this._url}${id}`, {
       method: 'PUT',
