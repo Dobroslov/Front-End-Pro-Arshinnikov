@@ -17,7 +17,7 @@ class TodosController {
 
   initView($el) {
     // функция для инициализации "view"
-    this.todosView = new TodosView($el, {
+    this.todosView = new TodosView($el, {// объект для хранения ссылок для событий удаления, добавления элементов и тогла. Это способ связи между разными классами
       onDelete: this.deleteTodo.bind(this),
       onAddTask: this.addTodo.bind(this),
       onToggleTask: this.toggleTodo.bind(this),

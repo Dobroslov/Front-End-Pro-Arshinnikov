@@ -26,10 +26,11 @@ class TodosView {
     const textInput = $(INPUT_TEXT);
     const infoText = $(INFO_TEXT);
     const newTitle = textInput.val();
-    const newTodo = { title: newTitle, isDone: false };
+    if (newTitle !== '') {const newTodo = { title: newTitle, isDone: false };
 
     this.clearInput();
-    this._config.onAddTask(newTodo).then(() => infoText.show().fadeOut(1500));
+    this._config.onAddTask(newTodo).then(() => infoText.show().fadeOut(1500));}
+    
   }
 
   onListClick(e) {
@@ -56,8 +57,11 @@ class TodosView {
   }
 
   toggleElement(e) {
+    let target = $(e.target)
+    if (!target.is(':button')) {
     const id = this.getElementId($(e.target));
     
     this._config.onToggleTask(id);
+    }
   }
 }
