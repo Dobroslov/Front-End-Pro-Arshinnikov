@@ -7,6 +7,7 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const cssNano = require('gulp-cssnano');
 const del = require('del');
+const include = require('gulp-file-include');
 
 function copyJs() {
   return src('src/js/**/*.js').pipe(concat('app.js')).pipe(dest('./dist'));
@@ -30,10 +31,6 @@ function copyCssMini() {
     .pipe(dest('./dist'));
 }
 
-function copyHtml() {
-  return src('src/*.html').pipe(dest('./dist'));
-}
-
 function copyImgs() {
   return src('src/images/*.+(jpg|jpeg|png|gif|svg)')
     .pipe(
@@ -46,11 +43,21 @@ function copyImgs() {
     .pipe(dest('dist/images'));
 }
 
+function copyhtml() {
+  return src('src/**.html')
+    .pipe(
+      include({
+        prefix: '@@',
+      })
+    )
+    .pipe(dest('./dist'));
+}
+
 function clear() {
   return del('dist');
 }
 
 module.exports = {
-  build: series(clear, parallel(copyJs, copyCss, copyHtml, copyImgs)),
-  minify: series(clear, parallel(copyJsMini, copyCssMini, copyHtml, copyImgs)),
+  build: series(clear, parallel(copyJs, copyCss, copyhtml, copyImgs)),
+  minify: series(clear, parallel(copyJsMini, copyCssMini, copyhtml, copyImgs)),
 };
