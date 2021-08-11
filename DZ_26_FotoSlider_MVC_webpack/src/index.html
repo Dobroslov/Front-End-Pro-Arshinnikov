@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="Arshinnikov Vladimir" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="Photo, slider, MVC, webpack" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+      defer
+    ></script>
+
+    <script defer src="./scripts/config.js"></script>
+    <script defer src="./scripts/controller/ControllerPhotoList.js"></script>
+    <script defer src="./scripts/model/CollectionPhotoList.js"></script>
+    <script defer src="./scripts/view/ViewPhotoList.js"></script>
+    <script defer src="./scripts/pagination.js"></script>
+    <script defer src="./scripts/script.js"></script>
+
+    <title>Список фотографий</title>
+  </head>
+
+  <body>
+
+<!-- Интерфейс разделен на две части. В левой части пользователь видит список альбомов. Его берем из https://jsonplaceholder.typicode.com/albums
+
+
+Когда пользователь нажмет на какой-то альбом в правой части он увидит фотографии из этого альбома. Их берем из https://jsonplaceholder.typicode.com/photos?albumId=ID где вместо ID подставляем ид нужного альбома.
+
+
+Сразу при загрузке приложения и получения списка альбомов, в правой части нужно показать фотографии из первого альбома в списке
+
+
+Архитектура проекта - MVC
+
+сборщик Webpack -->
+
+    <ul id="pagination">
+      <li><a href=""><</a></li>
+      <li><a class="active" href="">1</a></li>
+      <li><a href="">2</a></li>
+      <li><a href="">3</a></li>
+      <li><a href="">4</a></li>
+      <li><a href="">5</a></li>
+      <li><a href="">6</a></li>
+      <li><a href="">7</a></li>
+      <li><a href="">8</a></li>
+      <li><a href="">></a></li>
+    </ul>
+
+    <div id="photos-gallery"></div>
+
+    
+    <script type="text/template" id="photoItemTemplate">
+      <img class="photo-item" src="{{url}}" alt="{{title}}">
+    </script>
+  </body>
+</html>
