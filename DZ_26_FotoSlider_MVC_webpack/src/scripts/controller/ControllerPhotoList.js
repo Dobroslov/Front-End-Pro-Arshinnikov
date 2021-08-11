@@ -7,7 +7,7 @@ class ControllerPhotoList {
   initCollection() {
     this.collectionPhotoList = new CollectionPhotoList(ALBUMS_URL, PHOTOS_URL);
 
-    this.collectionPhotoList.getAlbums().then(() => this.renderAlbumsList(this.collectionPhotoList.albumsList));
+    // this.collectionPhotoList.getAlbums().then(() => this.renderAlbumsList(this.collectionPhotoList.albumsList));
   }
 
   initView($albums, $photos) {
