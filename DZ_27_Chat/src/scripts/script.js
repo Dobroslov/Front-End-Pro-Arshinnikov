@@ -7,7 +7,7 @@ const listMessages = document.getElementById('window-list-messages');
 
 function initConnection() {
   let socket = new WebSocket(url);
-  submitBtn.addEventListener('submit', onBtnSubmitNewMessage);
+  submitBtn.addEventListener('click', onBtnSubmitNewMessage);
   socket.onopen = function () {
     // проверка открылось ли соединение
     const startMessege = (message = {
