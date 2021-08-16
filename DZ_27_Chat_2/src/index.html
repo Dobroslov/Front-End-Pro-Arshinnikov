@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="author" content="Arshinnikov Vladimir"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="keywords" content="Photo, slider, MVC, webpack"/>
+    <link rel="stylesheet" href="./styles/style.css"/>
+
+    <script defer src="./scripts/socketService.js"></script>
+    <script defer src="./scripts/formController.js"></script>
+    <script defer src="./scripts/script.js"></script>
+
+    <title>Чатик</title>
+</head>
+
+<body>
+<div class="container">
+    <form name="chat-form">
+        <input type="text"name="input-text" id="input-text" placeholder="Сообщение"/>
+        <input type="text"name="input-name" id="input-name" placeholder="Имя пользователя"/>
+        <input type="submit" id="submit-btn"/>
+    </form>
+
+    <div id="window-list-messages"></div>
+</div>
+</body>
+</html>
+
+<!-- серер: wss://fep-app.herokuapp.com/
+
+
+Интерфейс состоит из списка сообщений и формы отправки сообщения.
+
+В списке сообщения отображаются как
+
+автор: сообщение
+
+автор: сообщение
+
+автор: сообщение
+
+автор: сообщение
+
+
+Форма состоит из двух инпутов, в первом имя во втором сообщение
+
+
+Формат пакета:
+
+{
+  type: 'message',
+  payload:
+  {
+    username: 'Alex',
+    message: 'Hello world' 
+  }
+} -->
