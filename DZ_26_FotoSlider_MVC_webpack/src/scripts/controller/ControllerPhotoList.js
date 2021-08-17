@@ -1,16 +1,21 @@
 class ControllerPhotoList {
-  constructor($albums, $photos) {
-    this.initCollection();
-    this.initView($albums, $photos);
+  constructor(albumsList, photosList, config) {
+    this.albumsList = albumsList;
+    this.photosList = photosList;
+    this.albums = [];
+    this.albumsListView = new ViewAlbumsList();
+    // this.photoListView = new ViewPhotoList();
+    this.collectionAlbumsList = new CollectionAlbumsList(config.albumUrl);
+    // this.сollectionPhotoList = new CollectionPhotoList(config.photosUrl);
+    this.start();
   }
 
-  initCollection() {
-    this.collectionPhotoList = new CollectionPhotoList(ALBUMS_URL, PHOTOS_URL);
-
-    // this.collectionPhotoList.getAlbums().then(() => this.renderAlbumsList(this.collectionPhotoList.albumsList));
+  initAlbums(albums) {
+    this.albums = albums;
+    console.log('🚀 ~ initAlbums ~ albums', albums);
   }
-
-  initView($albums, $photos) {
-    this.ViewPhotoList = new ViewPhotoList($albums, $photos);
+  start() {
+    let initAlbums = this.initAlbums.bind(this)
+    this.collectionAlbumsList.fetchData().then(initAlbums);
   }
 }

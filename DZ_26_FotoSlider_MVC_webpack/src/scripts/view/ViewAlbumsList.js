@@ -1,0 +1,3 @@
+class ViewAlbumsList {
+  constructor() {}
+}
