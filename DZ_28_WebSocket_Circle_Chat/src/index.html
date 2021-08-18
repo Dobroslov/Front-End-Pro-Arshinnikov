@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="author" content="Arshinnikov Vladimir"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="keywords" content="WebSocket, chat, webpack"/>
+    <link rel="stylesheet" href="./styles/style.css"/>
+
+    <script defer src="./scripts/SocketService.js"></script>
+    <script defer src="./scripts/FormController.js"></script>
+    <script defer src="./scripts/script.js"></script>
+
+    <title>Чатик</title>
+</head>
+
+<body>
+<div class="container">
+    <form name="circle-field">
+        <input type="text"name="input-syze" id="input-text" placeholder="Сообщение"/>
+        <input type="text"name="input-color" id="input-name" placeholder="Имя пользователя"/>
+        <input type="submit" id="submit-btn"/>
+    </form>
+
+    <div id="window-for-circles"></div>
+</div>
+</body>
+</html>
+
+<!-- При старте подключаемся к серверу через вебсокеты (ws://fep-app.herokuapp.com/).
+
+На странице мы рисуем мячики всех подключенных пользователей.
+
+
+Когда мы меняем цвет, радиус или координаты, мы не рисуем мячик сами, а отправляем информацию на сервер. Сервер в свою очередь разошлет эту информацию всем остальным подключенным клиентам, в том числе и нам.
+
+
+Сразу после подключения мы должны отправить команды add , чтобы все остальные клиенты узнали где находится наш мяч
+
+
+ФОРМАТЫ ПАКЕТОВ
+
+{
+    type: 'add',
+    payload: { id: 'uniqueID', color, size, x, y }
+}
+
+
+{
+    type: 'update',
+    payload: { id: 'uniqueID', color, size, x, y } -->
