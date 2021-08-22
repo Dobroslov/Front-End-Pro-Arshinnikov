@@ -1,6 +1,3 @@
 node_modules
 dist
 .vscode
-TodosView.js
-TodosController.js
-TodosCollection.js

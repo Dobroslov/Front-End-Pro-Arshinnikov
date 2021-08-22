@@ -1,6 +1,8 @@
-// import '../styles/style.css'
+'use strict';
 
-// import ControllerPhotoList from './controller/ControllerPhotoList';
+import '../styles/style.css';
+
+import ControllerPhotoList from './controller/ControllerPhotoList';
 
 const albumsList = document.getElementById('albums');
 const photosList = document.getElementById('photos');
