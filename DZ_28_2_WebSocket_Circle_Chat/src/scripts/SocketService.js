@@ -2,6 +2,7 @@ class SocketService {
   constructor(url) {
     this._url = url;
   }
+
   createSocket(config) {
     let socket = new WebSocket(this._url);
 
@@ -13,7 +14,7 @@ class SocketService {
     return socket;
   }
 
-  sendCircleData(socket, data) {
+  sendData(socket, data) {
     if (socket.readyState === WebSocket.OPEN) {
       socket.send(JSON.stringify(data));
     }

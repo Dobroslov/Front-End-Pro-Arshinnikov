@@ -1,20 +1,19 @@
 class FormController {
-  constructor(url, circleField, formData) {
+  constructor(url, circleField, form) {
     this.socketService = new SocketService(url);
     this.circleField = circleField;
+    this.form = form;
     this.idCircle = Date.now();
-    this.messageData = {
-      type: 'add',
-      payload: {
-        id: this.idCircle,
-        color: 'red',
-        size: 50,
-        x: 50,
-        y: 50,
-      },
+    this.myCircle = {
+      id: this.idCircle,
+      color: '#ff0000',
+      size: 50,
+      x: 50,
+      y: 50,
     };
     this.initSocket();
-    this.start(formData, this.messageData);
+    this.submit(form);
+    this.arrCircles = [];
   }
 
   initSocket() {
@@ -28,26 +27,18 @@ class FormController {
     this.socket = this.socketService.createSocket(config);
   }
 
-  start(formData, messageData) {
-    let templateCircle = this.getCircleHtmlTemplate(messageData);
-    this.circleField.innerHTML(templateCircle);
-    formData.addEventListener('submit', this.onFormSubmit.bind(this));
-  }
-
   onSockedOpen(event) {
-    let socket = event.target;    
-
+    let socket = event.target;
     console.log('[open] Соединение установлено');
-    this.socketService.sendCircleData(socket, this.messageData);
-    this.renderCircles(this.messageData);
+    this.socketService.sendData(socket, this.myCircle);
     console.log('Отправляем данные на сервер');
   }
 
   onNewMessage(event) {
     console.log(`[message] Данны получены с сервера: ${event.data}`, event);
     const messageData = JSON.parse(event.data);
-    console.log('incomingMessage', messageData);
     this.renderCircles(messageData);
+    this.moveCircle();
   }
 
   onSockedClose(event) {
@@ -65,44 +56,66 @@ class FormController {
     console.log(`[error] ${error.message}`);
   }
 
+  submit(form) {
+    form.addEventListener('submit', this.onFormSubmit.bind(this));
+  }
+
   onFormSubmit(event) {
     event.preventDefault();
-    let sizeCircle = formData.elements['input-size'].value;
-    let colorCircle = formData.elements['input-color'].value;
+    this.myCircle.color = formData.elements['input-color'].value;
+    this.myCircle.size = formData.elements['input-size'].value;
+    this.socketService.sendData(this.socket, this.myCircle);
   }
 
-  getCircleHtmlTemplate({payload}) {  
-    return `<div class="circle" id="${payload.id}"></div>`;
+  renderCircles(messageData) {
+    let templateCircle = this.getCircleElement(messageData);
+    this.circleField.replaceChildren(templateCircle);
   }
 
-  renderCircles(messageData) {}
+  getCircleElement(payload) {
+    let div = document.createElement('div');
+    div.className = 'circle';
+    div.id = this.myCircle.id;
+    div.style.backgroundColor = payload.color;
+    div.style.height = payload.size + 'px';
+    div.style.width = payload.size + 'px';
+    div.style.borderRadius = 50 + '%';
+    div.style.left = payload.x + 'px';
+    div.style.top = payload.y + 'px';
+    return div;
+  }
+
+  moveCircle() {
+    this.arrCircles = this.circleField.querySelectorAll('.circle');
+    this.myCirc = this.circleField.querySelector('.circle');
+    // console.log('🚀 ~ moveCircle ~ this.arrCircles', this.arrCircles[0].id)
+    this.myCirc.addEventListener('mousedown', this.onMouseDown.bind(this));
+  }
+  onMouseDown(e) {
+    console.log('🚀 ~ onMouseDown ~ e', e)
+    this.myCirc.addEventListener('mousemove', this.onMouseMove.bind(this));
+    this.myCirc.addEventListener('mouseup', this.onMouseUp.bind(this));
+  }
+
+  onMouseMove(e) {
+    console.log('🚀 ~ onMouseMove ~ e', e)
+    this.move(e.x, e.y);
+    // send({
+    //   type: 'move',
+    //   payload: { x: e.x, y: e.y },
+    // });
+  }
+
+  move(x, y) {
+  console.log('🚀 ~ move ~ x, y', x, y)
+    
+    this.myCirc.style.left = x - 25 + 'px';
+    this.myCirc.style.top = y - 25 + 'px';
+  }
+
+  onMouseUp() {
+    console.log('hello onMouseUp');
+    this.myCirc.removeEventListener('mousemove', this.onMouseMove.bind(this));
+    this.myCirc.removeEventListener('mouseup', this.onMouseUp.bind(this));
+  }
 }
-//   const circleEl = document.getElementById('circle');
-
-//   circleEl.addEventListener('mousedown', onMouseDown);
-
-//   function onMouseDown() {
-//     circleEl.addEventListener('mousemove', onMouseMove);
-//     circleEl.addEventListener('mouseup', onMouseUp);
-//   }
-
-//   function onMouseMove(e) {
-//     move(e.x, e.y);
-//     send({
-//       type: 'move',
-//       payload: { x: e.x, y: e.y },
-//     });
-//   }
-
-//   function move(x, y) {
-//     circleEl.style.left = x - 25 + 'px';
-//     circleEl.style.top = y - 25 + 'px';
-//   }
-
-//   function onMouseUp() {
-//     circleEl.removeEventListener('mousemove', onMouseMove);
-//     circleEl.removeEventListener('mouseup', onMouseUp);
-//   }
-// }
-
-// renderCircles(data) {

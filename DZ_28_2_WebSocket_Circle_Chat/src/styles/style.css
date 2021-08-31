@@ -10,11 +10,5 @@
 }
 
 .circle {
-  height: 50px;
-  width: 50px;
-  background-color: coral;
-  border-radius: 50%;
   position: absolute;
-  left: 50%;
-  top: 50%;
 }
