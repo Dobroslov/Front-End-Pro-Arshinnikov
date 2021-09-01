@@ -16,6 +16,7 @@ class SocketService {
 
   sendData(socket, data) {
     if (socket.readyState === WebSocket.OPEN) {
+      console.log('Send data', data);
       socket.send(JSON.stringify(data));
     }
   }
